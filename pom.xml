@@ -14,6 +14,7 @@
 
   <modules>
     <module>swgoh-tracker-core</module>
+    <module>swgoh-tracker-api</module>
   </modules>
 
   <properties>
@@ -25,6 +26,16 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.amurgin</groupId>
+        <artifactId>swgoh-tracker-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.amurgin</groupId>
+        <artifactId>swgoh-tracker-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
