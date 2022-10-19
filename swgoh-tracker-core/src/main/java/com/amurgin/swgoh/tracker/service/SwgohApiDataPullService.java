@@ -1,6 +1,5 @@
 package com.amurgin.swgoh.tracker.service;
 
-import com.amurgin.swgoh.tracker.api.dto.PlayerDTO;
 import com.amurgin.swgoh.tracker.api.service.SwgohDataPullService;
 import help.swgoh.api.SwgohAPI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +19,13 @@ public class SwgohApiDataPullService implements SwgohDataPullService {
     }
 
     @Override
-    public Optional<PlayerDTO> getPlayerByAllyCode(int allyCode) {
+    public Optional<String> getPlayerByAllyCode(int allyCode) {
         String playerResponse;
         try {
             playerResponse = swgohApiConnector.getPlayer(allyCode).get();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(playerResponse);
-        return Optional.empty();
+        return Optional.ofNullable(playerResponse);
     }
 }
