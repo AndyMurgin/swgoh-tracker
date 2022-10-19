@@ -3,6 +3,7 @@ package com.amurgin.swgoh.tracker.service;
 import com.amurgin.swgoh.tracker.api.service.DataPullConsumer;
 import com.amurgin.swgoh.tracker.api.service.SwgohDataPullService;
 import com.amurgin.swgoh.tracker.api.service.SwgohDataRefresher;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class SwgohApiDataRefresher implements SwgohDataRefresher {
 
     private final SwgohDataPullService dataPullService;
@@ -28,6 +30,6 @@ public class SwgohApiDataRefresher implements SwgohDataRefresher {
     public void run() {
         dataPullService.getPlayerByAllyCode(mainPlayerAllyCode)
                 .ifPresentOrElse(rawData -> dataConsumers.forEach(consumer -> consumer.processRawData(rawData)),
-                        () -> System.out.println("Unknonwn Error - data is empty for ally code " + mainPlayerAllyCode));
+                        () -> log.error("Data is empty for ally code {}", mainPlayerAllyCode));
     }
 }
