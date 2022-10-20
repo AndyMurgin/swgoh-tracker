@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+# command taken from https://github.com/JLLeitschuh/ktlint-gradle  task addKtlintFormatGitPreCommitHook
+filesToFormat="$(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" && $2 ~ /\.kts|\.java|\.kt/ { print $NF}')"
+
+if [ ! -z "$filesToFormat" ];
+then
+    echo "files to format $filesToFormat"
+    java -jar ./code-style/google-java-format-1.15.0-all-deps.jar --replace $filesToFormat
+    git add $filesToFormat
+fi

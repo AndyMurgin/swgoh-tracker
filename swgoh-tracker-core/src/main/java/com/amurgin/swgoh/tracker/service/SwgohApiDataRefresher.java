@@ -14,22 +14,24 @@ import java.util.List;
 @Slf4j
 public class SwgohApiDataRefresher implements SwgohDataRefresher {
 
-    private final SwgohDataPullService dataPullService;
-    private final Integer mainPlayerAllyCode;
-    private final List<DataPullConsumer> dataConsumers;
+  private final SwgohDataPullService dataPullService;
+  private final Integer mainPlayerAllyCode;
+  private final List<DataPullConsumer> dataConsumers;
 
-    @Autowired
-    public SwgohApiDataRefresher(SwgohDataPullService dataPullService, @Value("${swgoh.player.main.allycode:0}") Integer mainPlayerAllyCode,
-                                 List<DataPullConsumer> dataConsumers) {
-        this.dataPullService = dataPullService;
-        this.mainPlayerAllyCode = mainPlayerAllyCode;
-        this.dataConsumers = dataConsumers;
-    }
+  @Autowired
+  public SwgohApiDataRefresher(SwgohDataPullService dataPullService,
+      @Value("${swgoh.player.main.allycode:0}") Integer mainPlayerAllyCode,
+      List<DataPullConsumer> dataConsumers) {
+    this.dataPullService = dataPullService;
+    this.mainPlayerAllyCode = mainPlayerAllyCode;
+    this.dataConsumers = dataConsumers;
+  }
 
-    @Override
-    public void run() {
-        dataPullService.getPlayerByAllyCode(mainPlayerAllyCode)
-                .ifPresentOrElse(rawData -> dataConsumers.forEach(consumer -> consumer.processRawData(rawData)),
-                        () -> log.error("Data is empty for ally code {}", mainPlayerAllyCode));
-    }
+  @Override
+  public void run() {
+    dataPullService.getPlayerByAllyCode(mainPlayerAllyCode)
+        .ifPresentOrElse(
+            rawData -> dataConsumers.forEach(consumer -> consumer.processRawData(rawData)),
+            () -> log.error("Data is empty for ally code {}", mainPlayerAllyCode));
+  }
 }

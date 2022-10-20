@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SimpleDebugDataPullConsumer implements DataPullConsumer {
 
-    @Override
-    public void processRawData(String rawData) {
-        log.debug(rawData);
-    }
+  @Override
+  public void processRawData(String rawData) {
+    log.debug(rawData);
+  }
 }

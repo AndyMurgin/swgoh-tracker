@@ -8,13 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwgohApiConnectorConfiguration {
-
-    @Bean
-    public SwgohAPI swgohApiConnector(@Value("${swgoh.api.username:username}") String username,
-                                      @Value("${swgoh.api.password:password}") String password) {
-        return new SwgohAPIBuilder()
-                .withUsername(username)
-                .withPassword(password)
-                .build();
-    }
+  @Bean
+  public SwgohAPI swgohApiConnector(
+      @Value("${swgoh.api.username:username}") String username,
+      @Value("${swgoh.api.password:password}") String password) {
+    return new SwgohAPIBuilder().withUsername(username).withPassword(password).build();
+  }
 }

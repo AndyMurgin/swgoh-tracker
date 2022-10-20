@@ -4,5 +4,5 @@ import java.util.Optional;
 
 public interface SwgohDataPullService {
 
-    Optional<String> getPlayerByAllyCode(int allyCode);
+  Optional<String> getPlayerByAllyCode(int allyCode);
 }

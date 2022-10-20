@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SwgohTrackerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SwgohTrackerApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(SwgohTrackerApplication.class, args);
+  }
 }

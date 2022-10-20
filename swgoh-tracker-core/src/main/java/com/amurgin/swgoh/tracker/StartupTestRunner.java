@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class StartupTestRunner implements CommandLineRunner {
 
-    @Autowired
-    private SwgohDataRefresher swgohRefresher;
+  @Autowired private SwgohDataRefresher swgohRefresher;
 
-    @Override
-    public void run(String... args) throws Exception {
-        swgohRefresher.run();
-    }
+  @Override
+  public void run(String... args) throws Exception {
+    swgohRefresher.run();
+  }
 }
