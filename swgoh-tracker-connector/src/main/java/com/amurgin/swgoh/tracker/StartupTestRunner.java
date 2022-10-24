@@ -12,6 +12,6 @@ public class StartupTestRunner implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    swgohRefresher.run();
+    // TODO happen to be executed in tests and fails: swgohRefresher.run();
   }
 }
