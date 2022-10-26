@@ -29,7 +29,7 @@
             <artifactId>spring-boot-dependencies</artifactId>
             <version>${spring.boot.version}</version>
             <type>pom</type>
-            <scope>import</scope>
+            <scope>import</scope> <!-- TODO must be one of [provided, compile, runtime, test, system] but is 'import' -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

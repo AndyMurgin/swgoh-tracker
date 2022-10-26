@@ -1,41 +1,46 @@
 package com.amurgin.swgoh.tracker.controller;
 
-import com.amurgin.swgoh.tracker.SwgohTrackerApplication;
-import com.amurgin.swgoh.tracker.controller.AccountsControllerTest.AccountsControllerTestConfiguration;
-import help.swgoh.api.SwgohAPI;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.amurgin.swgoh.tracker.SwgohApiCommonTests;
+import com.amurgin.swgoh.tracker.configuration.SwgohAPIMockTestConfiguration;
+import com.amurgin.swgoh.tracker.configuration.SwgohApiDataPullServiceConfiguration;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-@ExtendWith({SpringExtension.class, MockitoExtension.class})
+@ExtendWith(MockitoExtension.class)
 @ContextConfiguration(
-    classes = {SwgohTrackerApplication.class, AccountsControllerTestConfiguration.class})
+    classes = {SwgohAPIMockTestConfiguration.class, SwgohApiDataPullServiceConfiguration.class})
 @ActiveProfiles("tests")
-@SpringBootTest
-@AutoConfigureMockMvc
-public class AccountsControllerTest {
-
-  @TestConfiguration
-  static class AccountsControllerTestConfiguration {
-
-    @Bean
-    public SwgohAPI swgohApiConnector() {
-      return Mockito.mock(SwgohAPI.class);
-    }
-  }
+@WebMvcTest(AccountsController.class)
+public class AccountsControllerTest extends SwgohApiCommonTests {
 
   @Autowired private MockMvc mockMvc;
 
+  private static final int ALLYCODE = 123;
+
+  @BeforeEach
+  public void setUp() {
+    mockGetPlayer(ALLYCODE, getPlayerShortExample());
+  }
+
   @Test
-  public void test() {}
+  public void testFetchByAllyCode() throws Exception {
+    mockMvc
+        .perform(get("/accounts/" + ALLYCODE))
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(content().string(containsString("\"name\": \"Pogrommist\"")));
+  }
 }
