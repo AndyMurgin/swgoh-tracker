@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-@Profile({"production", "staging"})
+@Profile({"production", "staging", "dev"})
 @Configuration
 public class SwgohApiConnectorConfiguration {
   @Bean

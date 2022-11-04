@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import lombok.SneakyThrows;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,5 +27,13 @@ public class SwgohApiCommonTests {
   protected void mockGetPlayer(Integer allyCode, String expected) {
     Mockito.when(swgohApiConnector.getPlayer(allyCode))
         .thenReturn(CompletableFuture.completedFuture(expected));
+  }
+
+  @SneakyThrows
+  protected void getPlayerThrowsException(
+      Integer allyCode, Class<? extends Throwable> exceptionClass) {
+    CompletableFuture<String> futureMock = Mockito.mock(CompletableFuture.class);
+    Mockito.when(swgohApiConnector.getPlayer(allyCode)).thenReturn(futureMock);
+    Mockito.when(futureMock.get()).thenThrow(exceptionClass);
   }
 }

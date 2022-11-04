@@ -26,7 +26,7 @@ public class SwgohApiDataPullService implements SwgohDataPullService {
       playerResponse = swgohApiConnector.getPlayer(allyCode).get();
     } catch (InterruptedException | ExecutionException e) {
       log.error(e.getMessage());
-      throw new RuntimeException(e);
+      return Optional.empty();
     }
     return Optional.ofNullable(playerResponse);
   }
