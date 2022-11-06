@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.amurgin.swgoh.tracker.SwgohApiCommonTests;
 import com.amurgin.swgoh.tracker.configuration.SwgohAPIMockTestConfiguration;
 import com.amurgin.swgoh.tracker.configuration.SwgohApiDataPullServiceConfiguration;
-import java.util.concurrent.ExecutionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,7 +58,7 @@ public class AccountsControllerTest extends SwgohApiCommonTests {
   public void testFetchByAllyCode_unknownCode() throws Exception {
     // prepare
     var allyCode = 1;
-    getPlayerThrowsException(allyCode, ExecutionException.class);
+    getPlayerThrowsException(allyCode);
 
     mockMvc
         .perform(get("/accounts/" + 1))
