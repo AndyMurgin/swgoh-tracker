@@ -30,10 +30,9 @@ public class SwgohApiCommonTests {
   }
 
   @SneakyThrows
-  protected void getPlayerThrowsException(
-      Integer allyCode, Class<? extends Throwable> exceptionClass) {
+  protected void getPlayerThrowsException(Integer allyCode) {
     CompletableFuture<String> futureMock = Mockito.mock(CompletableFuture.class);
     Mockito.when(swgohApiConnector.getPlayer(allyCode)).thenReturn(futureMock);
-    Mockito.when(futureMock.get()).thenThrow(exceptionClass);
+    Mockito.when(futureMock.get()).thenThrow(java.util.concurrent.ExecutionException.class);
   }
 }
