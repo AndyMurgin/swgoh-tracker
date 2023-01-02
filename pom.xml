@@ -18,8 +18,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.framework.version>5.3.23</spring.framework.version>
-        <spring.boot.version>2.7.4</spring.boot.version>
+        <spring.boot.version>3.0.1</spring.boot.version>
         <spring.mongodb.version>3.4.5</spring.mongodb.version>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
