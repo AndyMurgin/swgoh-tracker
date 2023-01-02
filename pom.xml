@@ -14,6 +14,7 @@
 
     <modules>
         <module>swgoh-tracker-connector</module>
+        <module>swgoh-tracker-accounts</module>
     </modules>
 
     <properties>
