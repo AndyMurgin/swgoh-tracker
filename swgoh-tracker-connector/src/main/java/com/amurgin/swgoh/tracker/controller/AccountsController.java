@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/accounts/*")
 public class AccountsController {
 
   private final SwgohDataPullService dataPullService;
@@ -22,7 +22,7 @@ public class AccountsController {
 
   @GetMapping("/{allyCode}")
   public String fetchByAllyCode(@PathVariable(value = "allyCode") Integer allyCode) {
-    if (allyCode == null || allyCode == 0) {
+    if (allyCode == null || allyCode <= 0) {
       throw new IllegalAllyCodeException(allyCode);
     }
 
