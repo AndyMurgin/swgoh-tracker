@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.amurgin.swgoh.tracker.SwgohApiCommonTests;
 import com.amurgin.swgoh.tracker.configuration.SwgohAPIMockTestConfiguration;
 import com.amurgin.swgoh.tracker.configuration.SwgohApiDataPullServiceConfiguration;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -27,9 +26,6 @@ import org.springframework.test.web.servlet.MockMvc;
 public class AccountsControllerTest extends SwgohApiCommonTests {
 
   @Autowired private MockMvc mockMvc;
-
-  @BeforeEach
-  public void setUp() {}
 
   @Test
   public void testFetchByAllyCode() throws Exception {

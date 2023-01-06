@@ -43,6 +43,14 @@ public class AccountDTOValidator implements Validator {
   }
 
   private void validatePlayerSources(Collection<PlayerSourceDTO> playerSources, Errors errors) {
+    if (isNull(playerSources)) {
+      errors.rejectValue(
+          "playerSources",
+          "playerSources.empty",
+          "Non-empty playerSources field should be specified");
+      return;
+    }
+
     if (playerSources.isEmpty()) {
       errors.rejectValue(
           "playerSources",

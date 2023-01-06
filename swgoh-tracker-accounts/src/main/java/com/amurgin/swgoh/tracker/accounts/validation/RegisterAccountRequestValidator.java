@@ -41,6 +41,7 @@ public class RegisterAccountRequestValidator implements Validator {
           "accountInfo",
           "accountInfo.empty",
           "Non-empty account info is required for registration");
+      return;
     }
 
     try {

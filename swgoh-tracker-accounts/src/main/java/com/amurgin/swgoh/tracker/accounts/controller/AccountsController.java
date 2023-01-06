@@ -6,6 +6,7 @@ import com.amurgin.swgoh.tracker.accounts.service.api.AccountsApiValidationServi
 import com.amurgin.swgoh.tracker.accounts.validation.RegisterAccountRequestValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -32,7 +33,10 @@ public class AccountsController {
     this.validationService = validationService;
   }
 
-  @PostMapping("/register")
+  @PostMapping(
+      value = "/register",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseBody
   public RegisterAccountResponse register(
       @RequestBody @Validated RegisterAccountRequest request, BindingResult bindingResult) {
