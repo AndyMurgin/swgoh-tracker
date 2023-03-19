@@ -5,7 +5,7 @@ import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.amurgin.swgoh.tracker.accounts.exception.IncorrectRegisterInfoException;
+import com.amurgin.swgoh.tracker.accounts.exception.api.IncorrectRegisterInfoException;
 import com.amurgin.swgoh.tracker.accounts.records.api.register.RegisterAccountRequest;
 import java.util.Arrays;
 import java.util.Collection;

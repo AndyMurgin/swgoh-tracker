@@ -1,6 +1,6 @@
 package com.amurgin.swgoh.tracker.accounts.service.api;
 
-import com.amurgin.swgoh.tracker.accounts.exception.IncorrectRegisterInfoException;
+import com.amurgin.swgoh.tracker.accounts.exception.api.IncorrectRegisterInfoException;
 import com.amurgin.swgoh.tracker.accounts.records.api.register.RegisterAccountRequest;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
