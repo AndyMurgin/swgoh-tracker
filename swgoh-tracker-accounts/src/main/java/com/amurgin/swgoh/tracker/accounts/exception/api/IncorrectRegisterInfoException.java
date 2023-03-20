@@ -1,4 +1,4 @@
-package com.amurgin.swgoh.tracker.accounts.exception;
+package com.amurgin.swgoh.tracker.accounts.exception.api;
 
 public class IncorrectRegisterInfoException extends RuntimeException {
 

@@ -1,5 +1,7 @@
 package com.amurgin.swgoh.tracker.accounts.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -7,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.amurgin.swgoh.tracker.accounts.configuration.AccountsControllerTestConfiguration;
+import com.amurgin.swgoh.tracker.accounts.exception.connector.TrackerAppApiException;
+import com.amurgin.swgoh.tracker.accounts.service.connector.SwgohApiConnectorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,6 +26,9 @@ import org.springframework.test.web.servlet.MockMvc;
 public class AccountsControllerTest {
 
   @Autowired private MockMvc mockMvc;
+
+  // Mocks
+  @Autowired private SwgohApiConnectorService connectorService;
 
   @Test
   public void testRegister() throws Exception {
@@ -80,5 +87,39 @@ public class AccountsControllerTest {
                 .string(
                     "Unable to register the account : Non-empty playerSources field should be"
                         + " specified"));
+  }
+
+  @Test
+  public void testRegister_accountRegistrationException() throws Exception {
+    stubRegistrationFailed();
+    var body =
+        """
+        {
+            "uuid": "tests-123",
+            "accountInfo": {
+                "allyCode": 123456,
+                "playerSources": [
+                    {
+                        "id": "id123",
+                        "type": "TELEGRAM"
+                    }
+                ]
+            }
+        }
+        """;
+    mockMvc
+        .perform(
+            post("/accounts/register")
+                .content(body)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+        .andDo(print())
+        .andExpect(status().isInternalServerError())
+        .andExpect(
+            content().string("Error during account registration for allycode 123456 : null"));
+  }
+
+  private void stubRegistrationFailed() throws TrackerAppApiException {
+    when(connectorService.getAccount(any(Integer.class))).thenThrow(TrackerAppApiException.class);
   }
 }
