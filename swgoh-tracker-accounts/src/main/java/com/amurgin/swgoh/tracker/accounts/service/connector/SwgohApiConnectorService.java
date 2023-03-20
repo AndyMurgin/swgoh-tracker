@@ -19,7 +19,7 @@ public class SwgohApiConnectorService {
     try {
       responseBody =
           restTemplate.getForObject(
-              rootPath + "/{allyCode}",
+              rootPath + "/accounts/{allyCode}",
               String.class,
               Collections.singletonMap("allyCode", allycode));
     } catch (Exception e) {
